@@ -29,7 +29,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
+    "test": "jest __tests__",
     "test:e2e": "playwright test"
   },
   "eslintConfig": {
