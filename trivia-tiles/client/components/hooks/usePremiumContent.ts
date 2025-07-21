@@ -26,11 +26,13 @@ const FREE_PUZZLE_LIMIT = 3;
 
 export const usePremiumContent = () => {
   const [playedPuzzles, setPlayedPuzzles] = useState<number>(() => {
+    if (typeof window === 'undefined') return 0; // Server-side check
     const saved = localStorage.getItem('playedPuzzles');
     return saved ? parseInt(saved, 10) : 0;
   });
 
   const [purchasedCredits, setPurchasedCredits] = useState<number>(() => {
+    if (typeof window === 'undefined') return 0; // Server-side check
     const saved = localStorage.getItem('purchasedCredits');
     return saved ? parseInt(saved, 10) : 0;
   });
@@ -39,11 +41,15 @@ export const usePremiumContent = () => {
 
   // Persist state to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('playedPuzzles', playedPuzzles.toString());
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('playedPuzzles', playedPuzzles.toString());
+    }
   }, [playedPuzzles]);
 
   useEffect(() => {
-    localStorage.setItem('purchasedCredits', purchasedCredits.toString());
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('purchasedCredits', purchasedCredits.toString());
+    }
   }, [purchasedCredits]);
   
   /**
