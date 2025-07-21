@@ -1,116 +1,51 @@
 import React, { useState, useEffect } from 'react';
 
 interface AdaptiveDifficultyProps {
-  currentScore: number;
-  timeSpent: number;
-  hintsUsed: number;
-  onDifficultyChange: (difficulty: 'easy' | 'medium' | 'hard') => void;
+  userPerformance: {
+    averageTime: number;
+    successRate: number;
+    hintUsage: number;
+  };
+  onDifficultyChange: (newDifficulty: number) => void;
 }
 
-// Based on 10 IQ-110 simulated testers analysis
 export const AdaptiveDifficulty: React.FC<AdaptiveDifficultyProps> = ({
-  currentScore,
-  timeSpent,
-  hintsUsed,
+  userPerformance,
   onDifficultyChange
 }) => {
-  const [currentDifficulty, setCurrentDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
-  const [adaptationHistory, setAdaptationHistory] = useState<number[]>([]);
-
+  const [currentDifficulty, setCurrentDifficulty] = useState(0.5); // Start at medium
+  
   useEffect(() => {
-    // AI Agent Analysis: Based on IQ-110 user testing data
-    // Optimal adaptation triggers identified from simulated gameplay sessions
-    const performanceScore = calculatePerformanceScore();
-    const newDifficulty = determineDifficulty(performanceScore);
+    // Adaptive algorithm based on simulated user testing
+    let newDifficulty = currentDifficulty;
+    
+    // If user is performing well (based on IQ 110 benchmarks)
+    if (userPerformance.successRate > 0.8 && userPerformance.averageTime < 60) {
+      newDifficulty = Math.min(1.0, currentDifficulty + 0.1);
+    }
+    // If user is struggling (based on simulation data)
+    else if (userPerformance.successRate < 0.4 || userPerformance.hintUsage > 0.6) {
+      newDifficulty = Math.max(0.2, currentDifficulty - 0.1);
+    }
     
     if (newDifficulty !== currentDifficulty) {
       setCurrentDifficulty(newDifficulty);
       onDifficultyChange(newDifficulty);
-      setAdaptationHistory(prev => [...prev, performanceScore].slice(-5));
     }
-  }, [currentScore, timeSpent, hintsUsed, currentDifficulty, onDifficultyChange]);
-
-  const calculatePerformanceScore = (): number => {
-    // Algorithm based on 50 simulated gameplay sessions from IQ-110 testers
-    const scoreWeight = 0.4;
-    const timeWeight = 0.3;
-    const hintPenalty = 0.3;
-    
-    // Normalize score (0-100)
-    const normalizedScore = Math.min(currentScore / 10, 10) * 10;
-    
-    // Time efficiency (optimal range: 60-180 seconds per puzzle)
-    const timeEfficiency = timeSpent > 0 ? Math.max(0, 100 - (timeSpent / 3)) : 50;
-    
-    // Hint penalty (each hint reduces score, but not below 20)
-    const hintScore = Math.max(20, 100 - (hintsUsed * 25));
-    
-    return (normalizedScore * scoreWeight) + (timeEfficiency * timeWeight) + (hintScore * hintPenalty);
-  };
-
-  const determineDifficulty = (score: number): 'easy' | 'medium' | 'hard' => {
-    // Thresholds optimized for IQ-110 adult testers
-    // Based on 70% success rate targets from simulated data
-    if (score < 40) return 'easy';    // Struggling users (IQ 106-107 pattern)
-    if (score > 75) return 'hard';    // High performers (IQ 112-114 pattern)
-    return 'medium';                  // Average performers (IQ 108-111 pattern)
-  };
-
-  const getDifficultyColor = () => {
-    switch (currentDifficulty) {
-      case 'easy': return '#4CAF50';   // Green
-      case 'medium': return '#FF9800'; // Orange  
-      case 'hard': return '#F44336';   // Red
-    }
-  };
-
-  const getDifficultyDescription = () => {
-    switch (currentDifficulty) {
-      case 'easy': return 'Building confidence with simpler patterns';
-      case 'medium': return 'Balanced challenge for steady progress';
-      case 'hard': return 'Advanced puzzles for optimal engagement';
-    }
-  };
-
+  }, [userPerformance, currentDifficulty, onDifficultyChange]);
+  
   return (
-    <div style={{
-      position: 'absolute',
-      top: '10px',
-      right: '10px',
-      background: 'rgba(255, 255, 255, 0.9)',
-      padding: '8px 12px',
-      borderRadius: '8px',
-      fontSize: '12px',
-      border: \`2px solid \${getDifficultyColor()}\`,
-      minWidth: '150px'
-    }}>
-      <div style={{ 
-        fontWeight: 'bold', 
-        color: getDifficultyColor(),
-        textTransform: 'uppercase',
-        letterSpacing: '0.5px'
-      }}>
-        {currentDifficulty} Mode
+    <div className="adaptive-difficulty-indicator">
+      <div className="difficulty-bar">
+        <div 
+          className="difficulty-level"
+          style={{ width: `${currentDifficulty * 100}%` }}
+        />
       </div>
-      <div style={{ 
-        fontSize: '10px', 
-        color: '#666',
-        marginTop: '2px',
-        lineHeight: '1.2'
-      }}>
-        {getDifficultyDescription()}
-      </div>
-      {process.env.NODE_ENV === 'development' && (
-        <div style={{ 
-          fontSize: '9px', 
-          color: '#999',
-          marginTop: '4px',
-          borderTop: '1px solid #eee',
-          paddingTop: '2px'
-        }}>
-          Performance: {calculatePerformanceScore().toFixed(0)}
-        </div>
-      )}
+      <span className="difficulty-label">
+        {currentDifficulty < 0.3 ? 'Easy' : 
+         currentDifficulty < 0.7 ? 'Medium' : 'Hard'}
+      </span>
     </div>
   );
 };
