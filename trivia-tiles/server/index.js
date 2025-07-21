@@ -9,6 +9,22 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 
+// Root endpoint - API documentation
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Trivia Tiles API',
+    version: '1.0.0',
+    description: 'Backend API for the Trivia Tiles word puzzle game',
+    endpoints: {
+      health: '/health',
+      puzzle: '/api/puzzle',
+      analytics: '/api/analytics'
+    },
+    status: 'online',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Health check endpoint for Render
 app.get('/health', (req, res) => {
   res.json({ 
