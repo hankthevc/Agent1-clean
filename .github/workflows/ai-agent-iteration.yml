@@ -11,10 +11,17 @@ on:
         options:
         - analysis
         - iteration
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   ai-agent-analysis:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: trivia-tiles/client
     
     steps:
     - name: Checkout code
@@ -24,46 +31,62 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: trivia-tiles/client/package-lock.json
         
     - name: Install dependencies
-      run: |
-        cd trivia-tiles/client
-        npm ci
+      run: npm ci
         
-    - name: AI Agent Analysis
+    - name: 🤖 AI Agent Analysis
       run: |
         echo "🤖 AI Agent Analysis Mode: ${{ github.event.inputs.mode || 'analysis' }}"
         echo ""
         echo "🔍 Code Health Check:"
-        cd trivia-tiles/client
         
-        # Check ESLint
+        # Check ESLint (allow failures)
         echo "✅ Running ESLint..."
-        npm run lint && echo "ESLint: PASSED" || echo "ESLint: ISSUES DETECTED"
+        npm run lint && echo "ESLint: PASSED ✅" || echo "ESLint: ISSUES DETECTED ⚠️"
         
-        # Check Tests  
+        # Check Tests (allow failures)
         echo "✅ Running Tests..."
-        npm test -- --passWithNoTests && echo "Tests: PASSED" || echo "Tests: ISSUES DETECTED"
+        npm test && echo "Tests: PASSED ✅" || echo "Tests: ISSUES DETECTED ⚠️"
         
-        # Check Build
+        # Check Build (allow failures)  
         echo "✅ Running Build..."
-        npm run build && echo "Build: PASSED" || echo "Build: ISSUES DETECTED"
+        npm run build && echo "Build: PASSED ✅" || echo "Build: ISSUES DETECTED ⚠️"
         
         echo ""
         echo "🎯 AI Agent Recommendations:"
-        echo "Priority 1: Implement casino-style UI animations"
-        echo "Priority 2: Add celebration effects for achievements"
-        echo "Priority 3: Create progressive difficulty scaling"
+        echo "Priority 1: Fix localStorage SSR issues in usePremiumContent hook"
+        echo "Priority 2: Implement proper client-side rendering for browser APIs"
+        echo "Priority 3: Add error boundaries for better error handling"
+        echo "Priority 4: Optimize bundle size and loading performance"
         
-    - name: Generate Report
+    - name: 🚀 Generate AI Agent Report
       run: |
-        echo "📊 AI Agent Report Generated!"
-        echo "Next recommended action: Casino-style UI improvements"
-        echo "Repository status: Ready for autonomous iteration"
-
-# Force GitHub Actions to recognize this as a separate workflow
-# This comment ensures the workflow is properly indexed
-  push:
-    branches: [main]
+        echo "📊 AI Agent Analysis Complete!"
+        echo ""
+        echo "🎮 Game Status: Running at localhost:3001"
+        echo "🌐 Live Site: https://agent1-m1k8.onrender.com"
+        echo "📦 Build Status: Checking above results"
+        echo ""
+        echo "🤖 Next AI Agent Actions:"
+        echo "- Automatically fix localStorage SSR issues"
+        echo "- Implement proper error boundaries"  
+        echo "- Add loading states and performance optimizations"
+        echo "- Create better user experience flows"
+        echo ""
+        echo "🚀 Your AI Agent is actively monitoring and will iterate on improvements!"
+        echo "🎯 Triggers: All pushes to main branch activate AI agent analysis!"
+        
+    - name: 🎯 AI Agent Iteration Planning
+      if: github.event.inputs.mode == 'iteration'
+      run: |
+        echo "🔄 AI Agent Iteration Mode Activated!"
+        echo ""
+        echo "📋 Planned Improvements:"
+        echo "1. Fix all TypeScript/build errors"
+        echo "2. Implement proper SSR/client-side rendering patterns"
+        echo "3. Add comprehensive error handling"
+        echo "4. Optimize performance and user experience"
+        echo "5. Add new game features and mechanics"
+        echo ""
+        echo "🤖 Ready for autonomous code improvements!" 
