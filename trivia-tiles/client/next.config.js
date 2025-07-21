@@ -8,6 +8,23 @@ const { withSentryConfig } = require('@sentry/nextjs');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  
+  // Enable static export for Render deployment
+  output: 'export',
+  
+  // Disable image optimization for static export
+  images: {
+    unoptimized: true
+  },
+  
+  // Add trailing slash for static hosting
+  trailingSlash: true,
+  
+  // Disable server-side features for static export
+  experimental: {
+    esmExternals: false
+  },
+  
   // Add any other Next.js configuration options here.
 };
 
