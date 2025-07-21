@@ -1,0 +1,33 @@
+{
+  "simulation_config": {
+    "name": "Adult Tester Simulation - IQ 110",
+    "description": "10 simulated adult testers with average IQ of 110 for game testing and optimization",
+    "target_iq": 110,
+    "age_range": "25-45",
+    "sample_size": 10
+  },
+  "testers": [
+    {
+      "id": "tester_001",
+      "name": "Alex Chen", 
+      "iq": 108,
+      "age": 29,
+      "profile": {
+        "reaction_time_ms": 520,
+        "vocabulary_level": "college",
+        "pattern_recognition": "above_average",
+        "attention_span_minutes": 12,
+        "gaming_experience": "moderate",
+        "preferred_difficulty": "medium",
+        "learning_style": "visual"
+      },
+      "behavioral_traits": {
+        "gives_up_threshold": 3,
+        "retry_frequency": "high",
+        "hint_usage": "moderate",
+        "social_sharing": true,
+        "competitive_nature": "moderate"
+      }
+    }
+  ]
+}
