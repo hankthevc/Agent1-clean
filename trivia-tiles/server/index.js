@@ -1,62 +1,64 @@
-const Sentry = require('@sentry/node');
-const { scheduleBackup } = require('./backup');
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
 
-/**
- * ==============================================================================
- * Sentry Initialization
- * ==============================================================================
- */
-Sentry.init({
-  dsn: process.env.SENTRY_DSN,
-  tracesSampleRate: 1.0,
+const app = express();
+const PORT = process.env.PORT || 4000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'healthy', 
+    timestamp: new Date().toISOString(),
+    service: 'trivia-tiles-server',
+    version: '1.0.0'
+  });
 });
 
-/**
- * ==============================================================================
- * Server Entry Point
- * ==============================================================================
- *
- * This file represents the main entry point for the backend server processes.
- * For this example, its only responsibility is to start the automated
- * backup schedule.
- *
- * To run this server:
- * `node trivia-tiles/server/index.js`
- *
- * In a full-fledged Express server, you would also initialize your API routes,
- * database connections, and other middleware here.
- *
- * ==============================================================================
- */
-
-console.log('Starting server process...');
-
-// Wrap the main server logic in a Sentry transaction to capture performance data
-// and any potential errors during initialization.
-const transaction = Sentry.startTransaction({
-  op: "server.initialization",
-  name: "Server Startup",
+// API Routes
+app.get('/api/puzzle', (req, res) => {
+  const samplePuzzle = {
+    center: 'A',
+    outer: ['B', 'C', 'D', 'E', 'F', 'G'],
+    validWords: ['CAB', 'BAD', 'FAD', 'FACE', 'AGED', 'BADGE', 'FADED'],
+    triviaClues: [
+      "This city is famously known as the 'City of Light.'",
+      "This city is home to the Louvre museum.",
+      "You can visit the Eiffel Tower here.",
+      "It's the capital city of France."
+    ],
+    finalTrivia: {
+      question: "What city do these clues describe?",
+      answer: "Paris"
+    }
+  };
+  res.json(samplePuzzle);
 });
 
-try {
-  // Initialize the scheduled backup job.
-  scheduleBackup();
-  console.log('Server process started successfully.');
-} catch (e) {
-  Sentry.captureException(e);
-  console.error('Failed to start server process:', e);
-  process.exit(1);
-} finally {
-  transaction.finish();
-}
+// Analytics endpoint
+app.post('/api/analytics', (req, res) => {
+  console.log('Analytics event:', req.body);
+  res.json({ success: true });
+});
 
-// In a real application, you would have your server listening here.
-// For example:
-//
-// const express = require('express');
-// const app = express();
-// const PORT = 3001;
-//
-// app.listen(PORT, () => {
-//   console.log(`Server is running on http://localhost:${PORT}`);
-// }); 
+// Error handling
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'Endpoint not found' });
+});
+
+// Start server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Trivia Tiles server running on port ${PORT}`);
+  console.log(`📍 Health check: http://localhost:${PORT}/health`);
+  console.log(`🎮 API endpoint: http://localhost:${PORT}/api/puzzle`);
+});
