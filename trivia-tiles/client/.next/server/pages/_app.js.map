@@ -1,1 +1,0 @@
-{"version":3,"file":"../pages/_app.js","mappings":"obAAAA,EAAAC,OAAA,CAAAC,QAAA","sources":["webpack://client/external commonjs \"react\"","webpack://client/<anon>"],"sourcesContent":["module.exports = require(\"react\");"],"names":["module","exports","require"],"sourceRoot":""}
