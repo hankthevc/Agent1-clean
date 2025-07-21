@@ -65,3 +65,5 @@ jobs:
 
 # Force GitHub Actions to recognize this as a separate workflow
 # This comment ensures the workflow is properly indexed
+  push:
+    branches: [main]
