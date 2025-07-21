@@ -21,10 +21,15 @@ on:
 jobs:
   ai-agent-iteration:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -413,7 +418,7 @@ jobs:
           Simulation data shows these changes address pain points
           affecting 70% of target demographic users."
           
-          git push
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
           echo "🚀 AI improvements pushed to repository"
         fi
         
