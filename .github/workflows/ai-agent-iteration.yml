@@ -328,6 +328,7 @@ jobs:
       if: github.event.inputs.mode == 'iteration' || github.event.inputs.mode == 'optimization'
       run: |
         echo "📋 Generating improvement implementation report..."
+        mkdir -p ai-reports
         
         cat > ai-reports/improvements-$(date +%Y%m%d-%H%M%S).md << 'EOF'
         # AI Agent Implementation Report
