@@ -1,0 +1,10 @@
+{
+  "name": "trivia-tiles-root",
+  "version": "1.0.0",
+  "description": "Trivia Tiles Game - Root Build Configuration",
+  "scripts": {
+    "build": "cd trivia-tiles/client && npm install && npm run build",
+    "postbuild": "echo 'Build completed successfully!'"
+  },
+  "private": true
+}
