@@ -1,0 +1,23 @@
+{
+  "projectName": "Trivia Tiles",
+  "description": "AI-powered interactive puzzle game inspired by New York Times Spelling Bee.",
+  "techStack": {
+    "frontend": "React (TypeScript)",
+    "backend": "Node.js, Express",
+    "deployment": "Render, GitHub Actions",
+    "aiTools": ["OpenAI Codex", "ChatGPT", "GitHub Copilot"]
+  },
+  "repoStructure": {
+    "client": "client/src",
+    "server": "server/"
+  },
+  "userRole": "Henry (vibecoder, strategic vision & direction)",
+  "aiRole": "Autonomous Developer & Debugger (React/TS specialist)",
+  "currentTask": {
+    "id": "task-1-word-validation",
+    "name": "Implement Comprehensive Word Validation",
+    "status": "initial implementation complete, needs debugging & UI fixes",
+    "notes": "Word validation via Free Dictionary API implemented, puzzle letters disappearing in UI. Needs immediate debugging."
+  },
+  "instructions": "Autonomously debug and fix UI rendering issues related to puzzle letters disappearing after dictionary validation implementation. Commit clearly explained changes and provide a summary of fixes."
+}

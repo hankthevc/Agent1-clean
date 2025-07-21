@@ -1,0 +1,14 @@
+{
+  "totalRequests": 150230,
+  "errorRate": "1.2%",
+  "apiPerformance": [
+    { "endpoint": "/api/scores", "avgResponseTime": "85ms" },
+    { "post": "/api/validate-word", "avgResponseTime": "120ms" },
+    { "post": "/api/create-checkout-session", "avgResponseTime": "450ms" }
+  ],
+  "topErrors": [
+    { "error": "TypeError: Cannot read properties of null", "count": 45 },
+    { "error": "502 Bad Gateway", "count": 22 },
+    { "error": "Database connection timeout", "count": 15 }
+  ]
+} 

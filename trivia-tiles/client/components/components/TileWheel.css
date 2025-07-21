@@ -1,0 +1,6 @@
+.tile-wheel {
+  margin: 1em auto;
+  display: block;
+}
+.tile-wheel g { cursor: pointer; }
+.tile-wheel g:hover circle { fill: #e7e7e7; }

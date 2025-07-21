@@ -1,0 +1,9 @@
+{
+  "weeklyRevenue": 495.00,
+  "newSubscriptions": 50,
+  "conversionRate": "4%",
+  "topPackages": [
+    { "package": "$0.99 for 3 Puzzles", "purchases": 450 },
+    { "package": "$2.99 for 10 Puzzles", "purchases": 50 }
+  ]
+} 

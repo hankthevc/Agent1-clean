@@ -1,0 +1,19 @@
+{
+  "weeklyUsers": 1250,
+  "avgSessionDuration": "4m 32s",
+  "userRetention": {
+    "week1": "60%",
+    "week2": "45%",
+    "week3": "30%"
+  },
+  "topPages": [
+    { "page": "/", "views": 2500 },
+    { "page": "/puzzle/daily", "views": 1800 },
+    { "page": "/leaderboard", "views": 950 }
+  ],
+  "popularPuzzles": [
+    { "type": "Crossword", "plays": 800 },
+    { "type": "Word Search", "plays": 650 },
+    { "type": "Logic", "plays": 400 }
+  ]
+} 

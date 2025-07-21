@@ -1,0 +1,26 @@
+{
+  "center": "A",
+  "outer": ["B", "C", "D", "E", "F", "G", "H"],
+  
+  "validWords": [
+    "abed", "aced", "ache", "aged", "ahead", "baaed", "babe", "bade",
+    "badge", "bagged", "beach", "bead", "beaded", "bedhead", "cabbed",
+    "cabbage", "cafe", "caged", "dabbed", "decaf", "dead", "deadhead",
+    "each", "faced", "fade", "faded", "gaffe", "gage", "gagged", "head",
+    "headed"
+  ],
+
+  "pangram": "cabbaged",
+
+  "triviaClues": [
+    "This city is famously known as the 'City of Light.'",
+    "This city is home to the Louvre museum.",
+    "You can visit the Eiffel Tower here.",
+    "It's the capital city of France."
+  ],
+
+  "finalTrivia": {
+    "question": "What city do these clues describe?",
+    "answer": "Paris"
+  }
+}
