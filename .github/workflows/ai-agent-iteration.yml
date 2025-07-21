@@ -62,3 +62,6 @@ jobs:
         echo "📊 AI Agent Report Generated!"
         echo "Next recommended action: Casino-style UI improvements"
         echo "Repository status: Ready for autonomous iteration"
+
+# Force GitHub Actions to recognize this as a separate workflow
+# This comment ensures the workflow is properly indexed
