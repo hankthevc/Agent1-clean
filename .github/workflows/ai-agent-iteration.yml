@@ -196,7 +196,12 @@ jobs:
         if [ ! -d "trivia-tiles/client/components" ]; then
           echo "Components directory not found, creating structure..."
           mkdir -p trivia-tiles/client/components/game
+        else
+          echo "Components directory exists, ensuring game subdirectory..."
+          mkdir -p trivia-tiles/client/components/game
         fi
+        
+        echo "📁 Directory structure ready: trivia-tiles/client/components/game/"
         
         # Create adaptive difficulty component
         cat > trivia-tiles/client/components/game/AdaptiveDifficulty.tsx << 'EOF'
@@ -253,7 +258,10 @@ jobs:
         };
         EOF
         
+        echo "✅ Created AdaptiveDifficulty.tsx component"
+        
         # Create contextual hints component
+        echo "📝 Creating contextual hints component..."
         cat > trivia-tiles/client/components/game/ContextualHints.tsx << 'EOF'
         import React, { useState, useEffect } from 'react';
         
@@ -311,6 +319,7 @@ jobs:
         };
         EOF
         
+        echo "✅ Created ContextualHints.tsx component"
         echo "✅ Created adaptive difficulty system based on IQ 110 user simulation"
         echo "✅ Added contextual hints triggered at optimal 90-second threshold"
         echo "🎯 These improvements target the 70% of users who struggled in initial testing"
