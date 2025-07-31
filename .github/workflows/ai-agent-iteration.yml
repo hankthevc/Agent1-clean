@@ -17,6 +17,9 @@ on:
         - analysis
         - simulation
         - optimization
+  schedule:
+    # Run every 5 minutes instead of daily
+    - cron: '*/5 * * * *'
 
 jobs:
   ai-agent-iteration:
@@ -623,9 +626,13 @@ jobs:
         2. Mobile UI optimization for touch interaction
         3. Social features based on competitive user preferences
         4. Advanced analytics for real user validation
-        
+
         EOF
-        
+
+    - name: Run Continuous Improvement Script
+      if: github.event.inputs.mode == 'iteration'
+      run: bash scripts/continuous-improvement.sh
+
     - name: Commit AI Improvements
       if: github.event.inputs.mode == 'iteration' || github.event.inputs.mode == 'optimization'
       run: |
