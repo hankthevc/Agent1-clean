@@ -1,0 +1,11 @@
+tester_id,name,iq,session_action,performance,insights
+tester_001,Alex Chen,108,completed_tutorial,moderate_success,needed hints after 90s
+tester_002,Maria Rodriguez,112,skipped_tutorial,high_performance,solved puzzles quickly
+tester_003,David Kim,106,struggled_with_UI,quit_early,mobile interface issues
+tester_004,Sarah Johnson,114,excellent_performance,completed_all,no hints needed
+tester_005,Michael Brown,109,average_performance,used_2_hints,good engagement
+tester_006,Lisa Wang,111,good_performance,completed_most,liked difficulty curve
+tester_007,James Wilson,107,needed_help,frustration_noted,too difficult initially
+tester_008,Emma Davis,113,very_good,minimal_hints,enjoyed challenge
+tester_009,Robert Taylor,105,struggled,requested_easier,cognitive load too high
+tester_010,Jennifer Lee,110,balanced_performance,steady_progress,optimal experience
